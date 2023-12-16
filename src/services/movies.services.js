@@ -19,6 +19,7 @@ const getAllMovies = async (limit, offset) =>{
             }]
         })
         const total = await db.Movie.count()
+
         return {
             movies,
             total   }
@@ -47,7 +48,7 @@ const getMovieById = async (id)=>{
                 association: 'actors',
                 attributes:[ 'id', 'first_name','last_name'],
                 through : {
-                    
+                    attributes : []
                 }
              }]
         })
@@ -75,10 +76,10 @@ const createMovie = async (dataMovie, actors) =>{
                 movie_id : newMovie.id,
                 actor_id : actor
               }
-            })}
+            })
             await db.Actor_Movie.bulkCreate(actorsDB,{
               validate : true
-            })
+            })}
         return newMovie
         
     } catch (error) {

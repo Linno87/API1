@@ -7,7 +7,7 @@ const paginate  = require('express-paginate')
 
 //Aquí pueden colocar las rutas de las APIs
 const movieApiRoutes = require('./routes/v1/movies.routes')
-
+const genreApiRoutes = require("./routes/v1/genres.routes")
 // view engine setup
 app.set('views', path.resolve(__dirname, './views'));
 app.set('view engine', 'ejs');
@@ -20,7 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(paginate.middleware(8,50));
 
-app.use('/api/v1/movies', movieApiRoutes)
+app.use('/api/v1/movies', movieApiRoutes),
+app.use("/api/v1/genres", genreApiRoutes),
 
 app.use('#',(req,res)=> res.status(404).json({
     ok: false,

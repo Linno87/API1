@@ -6,34 +6,26 @@ module.exports = (sequelize, dataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-       
-       actor_id: {
-            type: dataTypes.STRING(100),
-            allowNull: false
-        },
         movie_id: {
             type: dataTypes.STRING(100),
             allowNull: false
         },
+       actor_id: {
+            type: dataTypes.STRING(100),
+            allowNull: false
+        },
+        
         
     };
     let config = {
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
-        deletedAt: false
+        deletedAt: false,
+        tableName : "actor_movie"
     }
-    const Actor = sequelize.define(alias, cols, config); 
+    const Actor_Movie = sequelize.define(alias, cols, config); 
 
-    Actor.associate = function (models) {
-        Actor.belongsToMany(models.Movie, { // models.Movie -> Movies es el valor de alias en movie.js
-            as: "movies",
-            through: 'actor_movie',
-            foreignKey: 'actor_id',
-            otherKey: 'movie_id',
-            timestamps: false
-        })
-    }
-
-    return Actor
+   
+    return Actor_Movie
 };

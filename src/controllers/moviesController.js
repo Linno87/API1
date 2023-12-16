@@ -27,7 +27,7 @@ const moviesController = {
             return res.status(200).json({
                 ok: true,
                 meta : {
-                    total,
+                    total,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                     pagesCount, 
                     currentPage,
                     pages
@@ -110,6 +110,7 @@ const moviesController = {
             length,
             genre_id
          },actors)
+         
          return res.status(200).json({
             ok: true,
             data : 'Pelicula creada con éxito',
