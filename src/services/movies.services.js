@@ -96,7 +96,9 @@ const updateMovie = async (id, dataMovie) => {
 
         const {title, awards, rating, length, release_date, genre_id, actors} = dataMovie
 
-        const movie = await db.Movie.findByPk(id)
+        const movie = await db.Movie.findByPk(id, {
+            include : ["actors"]
+        })
 
         movie.title = title || movie.title
         movie.awards = awards || movie.awards
@@ -126,6 +128,8 @@ const updateMovie = async (id, dataMovie) => {
                 validate: true
             })
         }
+
+        return movie
         
     } catch (error) {
         throw {
@@ -140,12 +144,13 @@ const deleteMovie = async (id)=>{
 
         await db.Actor_Movie.destroy({
             where:{
-                actor_id : id
+                movie_id : id
             }
         })
         
         const movie = await db.Movie.findByPk(id)
         await movie.destroy();
+        return null
 
     } catch (error) {
         throw {
